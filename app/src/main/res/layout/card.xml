@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    >
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/newCard"
+     >
+     <ImageView
+         android:layout_width="48dp"
+         android:layout_height="48dp"
+         android:id="@+id/icon"
+         android:src="@drawable/default_icon"
+         />
+     <TextView
+         android:layout_width="192dp"
+         android:layout_height="wrap_content"
+         android:id="@+id/name"
+         android:text="Title"
+         android:layout_toRightOf="@+id/icon"
+         />
+     <TextView
+         android:layout_width="96dp"
+         android:layout_height="wrap_content"
+         android:id="@+id/rep"
+         android:text="Reps"
+         android:layout_below="@+id/name"
+         android:layout_toRightOf="@+id/icon"
+         />
+     <TextView
+         android:layout_width="96dp"
+         android:layout_height="wrap_content"
+         android:id="@+id/weight"
+         android:text="Weight"
+         android:layout_toRightOf="@+id/rep"
+         android:layout_below="@+id/name"
+         />
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/info"
+         android:layout_toRightOf="@id/name"
+         android:text="Button"
+         />
+
+
+
+ </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
