@@ -26,8 +26,6 @@ private lateinit var cardAdapter: CardAdapter
         recView.adapter = cardAdapter
         recView.layoutManager = LinearLayoutManager(this)
 
-        var viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
         val showNewCardDialog = findViewById<Button>(R.id.addCard)
         val complete = findViewById<Button>(R.id.cardComplete)
         val message = findViewById<TextView>(R.id.message)
@@ -36,7 +34,7 @@ private lateinit var cardAdapter: CardAdapter
         val duration = Toast.LENGTH_SHORT
         val emptyFieldCardCreation = Toast.makeText(applicationContext, emptyField, duration)
 
-        var gson: Gson = Gson()
+        var gson = Gson()
         var json: String
 
         showNewCardDialog.setOnClickListener{

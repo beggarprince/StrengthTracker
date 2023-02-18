@@ -31,7 +31,6 @@ class CardAdapter  (private val cardList: MutableList<Card>)
             name.text = curCard.title
             weight.text = curCard.weight
             rep.text = curCard.reps
-
         }
 
     }
