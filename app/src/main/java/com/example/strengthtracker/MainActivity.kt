@@ -13,8 +13,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val welcomeText: TextView = findViewById(R.id.welcome)
-        val emailText : TextView = findViewById(R.id.editEmail) as TextView
-        val passText : TextView = findViewById(R.id.password) as TextView
+        val emailText : TextView = findViewById(R.id.editEmail)
+        val passText : TextView = findViewById(R.id.password)
         val login = findViewById<Button>(R.id.loginButton)
         val register = findViewById<Button>(R.id.register)
         val forgotPassword = findViewById<Button>(R.id.forgotPass)

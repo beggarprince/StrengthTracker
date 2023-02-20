@@ -6,3 +6,4 @@ data class Card (
     val weight: String,
     val image: Int,
         )
+
