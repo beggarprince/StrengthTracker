@@ -41,17 +41,6 @@ class CardAdapter  (private val cardList: MutableList<Card>)
         notifyItemInserted(cardList.size-1)
     }
 
-    fun csvConvert(name: String,  rep: String, weight: String, imgFlag: Boolean ): String {
-        var csvLine: String = "$name,$rep,$weight,$imgFlag\n"
-        return csvLine
-    }
-
-    fun cardToCsv(card: Card, imgFlag: String): String
-    {
-        return "${card.title},${card.reps},${card.weight},$imgFlag\n"
-    }
-
-
 
 
 }

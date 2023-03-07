@@ -9,33 +9,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
+import androidx.activity.viewModels
 import java.io.File
 import java.io.FileOutputStream
 
-
-
 class Home : AppCompatActivity(), LifecycleOwner
 {
-private lateinit var cardAdapter: CardAdapter
-lateinit var vm: HomeViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        //Setup Firebase Storage
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val storage = FirebaseStorage.getInstance().reference
-        val cardStorage = storage.child("csv/cardList.txt")
+        val vm: HomeViewModel by viewModels()
 
-        //Setup RecyclerView
-        cardAdapter = CardAdapter(mutableListOf())
-        recView.adapter = cardAdapter
+        recView.adapter = vm.cardAdapter
         recView.layoutManager = LinearLayoutManager(this)
 
         //UI Setup
@@ -43,46 +31,41 @@ lateinit var vm: HomeViewModel
         val complete = findViewById<Button>(R.id.cardComplete)
         val message = findViewById<TextView>(R.id.message)
 
-        //File setup
-        val fileOutputStream: FileOutputStream = openFileOutput("cardList.csv", MODE_APPEND)
-        var cardListCsvFile = Uri.fromFile(File(
-            "csv/"+ firebaseUser + "/cardList.csv"))
-        //var userCsvReference = storage.child("users/"+ currentFirebaseUser + "/cardList.csv")
+       vm.storageSetup(this)
+        //message.text = newName.text.toString()
 
         //Toast messages
         val emptyField = "Please fill out field(s)"
         val duration = Toast.LENGTH_SHORT
         val emptyFieldCardCreation = Toast.makeText(applicationContext, emptyField, duration)
 
-        var data: String
-        var gson = Gson()
-        var json: String
-
+        //Show new card screen
         showNewCardDialog.setOnClickListener{
-            newName.text.clear()
-            newRep.text.clear()
-            newWeight.text.clear()
-            newCard.visibility = View.VISIBLE
+            recView.visibility = View.INVISIBLE
+            newRep.visibility = View.VISIBLE
+            newWeight.visibility = View.VISIBLE
+            newName.visibility = View.VISIBLE
+            cardComplete.visibility = View.VISIBLE
+            addCard.visibility = View.INVISIBLE
         }
 
+        //Finish card creation
         complete.setOnClickListener{
-            if((newName.text.toString().isNotEmpty()) && (newRep.text.toString().isNotEmpty()) && (newWeight.text.toString().isNotEmpty()))
-            {
-                //Create Card and add it to the mutable list
-                val card = Card(newName.text.toString(), newRep.text.toString(), newWeight.text.toString(), R.drawable.default_icon)
-                cardAdapter.addCard(card)
+            if(vm.checkComplete(newName.text.toString(),
+                    newRep.text.toString(),
+                    newWeight.text.toString())){
+                newName.text.clear()
+                newRep.text.clear()
+                newWeight.text.clear()
+                recView.visibility = View.VISIBLE
+                newRep.visibility = View.INVISIBLE
+                newWeight.visibility = View.INVISIBLE
+                newName.visibility = View.INVISIBLE
+                cardComplete.visibility = View.INVISIBLE
+                addCard.visibility = View.VISIBLE
 
-                //Add to csv file
-                data = cardAdapter.cardToCsv(card, "0")
-                fileOutputStream.write(data.toByteArray())
-               // json = gson.toJson(card)
-                //cardStorage.putBytes(data.toByteArray())
-                //cardStorage.putFile(cardListCsvFile)
-
-                newCard.visibility = View.INVISIBLE
             }
-            else{
-                emptyFieldCardCreation.show()
+            else {emptyFieldCardCreation.show()
             }
         }
 
