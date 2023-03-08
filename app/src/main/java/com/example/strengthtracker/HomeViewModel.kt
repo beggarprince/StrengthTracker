@@ -1,18 +1,12 @@
 package com.example.strengthtracker
 
 import android.content.Context
-import android.content.Context.MODE_APPEND
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.google.protobuf.LazyStringArrayList
 import java.io.File
 import java.io.FileOutputStream
-import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
 
 
 class HomeViewModel : ViewModel() {
@@ -44,19 +38,12 @@ class HomeViewModel : ViewModel() {
         }
         localCsv = Uri.fromFile(File(androidCsvRef))
     }
-
     fun populateRecView(inputStream: File) {
         val reader = inputStream.bufferedReader()
         var header = reader.readLine()
           while (header != null) {
               val (name, rep, weight, img) = header.split(',', ignoreCase = false, limit = 4)
-              println("\n$name $rep $weight")
-              var newcard =Card(name, rep, weight.trim().removeSurrounding("\""), R.drawable.default_icon)
-
-              cardAdapter.addCard(newcard)
-              csvLine = cardToCsv(newcard, "0")
-              fOut.write(csvLine.toByteArray())
-
+              addCard(name, rep, weight.trim().removeSurrounding("\""))
               header = reader.readLine()
           }
         reader.close()
@@ -80,21 +67,19 @@ class HomeViewModel : ViewModel() {
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
-        updateFirebase(localCsv)
     }
 
-    fun updateFirebase(uri: Uri){
-        //Would preferably simply write to the file, thils will do for now
-        firebaseCsvRef.putFile(uri)
+    fun updateFirebase(){
+        firebaseCsvRef.putFile(localCsv)
     }
-    fun csvToString(name: String, rep: String, weight: String, imgFlag: String ): String {
-         csvLine = "$name,$rep,$weight,$imgFlag\n"
-        return csvLine
-    }
-
-    fun cardToCsv(card: Card, imgFlag: String): String
-    {
+    fun cardToCsv(card: Card, imgFlag: String): String {
         return "${card.title},${card.reps},${card.weight},$imgFlag\n"
+    }
+    fun updateCsv(context: Context){
+        fOut  = context.openFileOutput("cardList.csv", 0)
+        var updatedCsv = cardAdapter.listToCsv()
+        fOut.write(updatedCsv.toByteArray())
+        updateFirebase()
     }
 
 

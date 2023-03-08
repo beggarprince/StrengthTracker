@@ -1,6 +1,5 @@
 package com.example.strengthtracker
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,8 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import androidx.activity.viewModels
-import java.io.File
-import java.io.FileOutputStream
 
 class Home : AppCompatActivity(), LifecycleOwner
 {
@@ -30,9 +27,9 @@ class Home : AppCompatActivity(), LifecycleOwner
         val showNewCardDialog = findViewById<Button>(R.id.addCard)
         val complete = findViewById<Button>(R.id.cardComplete)
         val message = findViewById<TextView>(R.id.message)
+        val updateCsv = findViewById<Button>(R.id.update)
 
        vm.storageSetup(this)
-        //message.text = newName.text.toString()
 
         //Toast messages
         val emptyField = "Please fill out field(s)"
@@ -53,7 +50,8 @@ class Home : AppCompatActivity(), LifecycleOwner
         complete.setOnClickListener{
             if(vm.checkComplete(newName.text.toString(),
                     newRep.text.toString(),
-                    newWeight.text.toString())){
+                    newWeight.text.toString()))
+            {
                 newName.text.clear()
                 newRep.text.clear()
                 newWeight.text.clear()
@@ -64,10 +62,15 @@ class Home : AppCompatActivity(), LifecycleOwner
                 cardComplete.visibility = View.INVISIBLE
                 addCard.visibility = View.VISIBLE
 
+                vm.updateFirebase()
             }
             else {emptyFieldCardCreation.show()
             }
         }
+        update.setOnClickListener{
+            vm.updateCsv(this)
+        }
+
 
     }
 

@@ -31,16 +31,37 @@ class CardAdapter  (private val cardList: MutableList<Card>)
             name.text = curCard.title
             weight.text = curCard.weight
             rep.text = curCard.reps
+            deleteButton.setOnClickListener{
+                deleteCard(curCard)
+            }
+
         }
 
     }
-
-    fun addCard(newCard: Card)
-    {
+    fun addCard(newCard: Card) {
         cardList.add(newCard)
         notifyItemInserted(cardList.size-1)
     }
+    fun deleteCard(card: Card) {
+        cardList.remove(card)
+        notifyDataSetChanged()
+    }
 
-
+    fun listToCsv():String
+    {
+        println("Creating new csv\n")
+        var temp: String =""
+        var index: Int = getItemCount() -1
+        while(index >= 0)
+        {
+            temp += cardAdapterToCsv(cardList[index],"0")
+            index--
+        }
+        println(temp)
+        return temp
+    }
+    fun cardAdapterToCsv(card: Card, imgFlag: String): String {
+        return "${card.title},${card.reps},${card.weight},$imgFlag\n"
+    }
 
 }
