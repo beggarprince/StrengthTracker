@@ -1,5 +1,6 @@
 package com.example.strengthtracker
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,7 +11,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 
+lateinit var builder: AlertDialog.Builder
+lateinit var deleteCard: Card
 class Home : AppCompatActivity(), LifecycleOwner
 {
 
@@ -27,7 +31,23 @@ class Home : AppCompatActivity(), LifecycleOwner
         val showNewCardDialog = findViewById<Button>(R.id.addCard)
         val complete = findViewById<Button>(R.id.cardComplete)
         val message = findViewById<TextView>(R.id.message)
-        val updateCsv = findViewById<Button>(R.id.update)
+
+            builder = AlertDialog.Builder( this)
+            builder.apply {
+                setTitle("Delete Item")
+                setPositiveButton("Yes",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        vm.delCard(deleteCard)
+                        vm.updateCsv(this@Home)
+                        message.text="Item Removed"
+                    })
+                setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+
+                        message.text="Item Not Removed"
+                    })
+            }
+
 
        vm.storageSetup(this)
 
@@ -62,16 +82,16 @@ class Home : AppCompatActivity(), LifecycleOwner
                 cardComplete.visibility = View.INVISIBLE
                 addCard.visibility = View.VISIBLE
 
-                vm.updateFirebase()
+               // vm.updateFirebase()
             }
             else {emptyFieldCardCreation.show()
             }
         }
-        update.setOnClickListener{
-            vm.updateCsv(this)
-        }
-
 
     }
 
+}
+public fun deleteDelete(card: Card){
+    deleteCard = card
+    builder.show()
 }

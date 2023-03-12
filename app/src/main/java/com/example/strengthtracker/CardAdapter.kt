@@ -12,6 +12,7 @@ class CardAdapter  (private val cardList: MutableList<Card>)
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+
         return CardViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.card,
@@ -31,8 +32,9 @@ class CardAdapter  (private val cardList: MutableList<Card>)
             name.text = curCard.title
             weight.text = curCard.weight
             rep.text = curCard.reps
+
             deleteButton.setOnClickListener{
-                deleteCard(curCard)
+                deleteDelete(curCard)
             }
 
         }

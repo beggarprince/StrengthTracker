@@ -9,7 +9,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : ViewModel(){
  var cardAdapter= CardAdapter(mutableListOf())
 
     lateinit var csvLine: String
@@ -67,6 +67,7 @@ class HomeViewModel : ViewModel() {
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
+        updateFirebase()
     }
 
     fun updateFirebase(){
@@ -80,6 +81,10 @@ class HomeViewModel : ViewModel() {
         var updatedCsv = cardAdapter.listToCsv()
         fOut.write(updatedCsv.toByteArray())
         updateFirebase()
+    }
+
+    fun delCard(card:Card){
+        cardAdapter.deleteCard(card)
     }
 
 

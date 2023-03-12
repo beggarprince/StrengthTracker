@@ -39,11 +39,20 @@
          android:layout_below="@+id/name"
          />
      <Button
-         android:layout_width="wrap_content"
+         android:layout_width="60dp"
          android:layout_height="wrap_content"
          android:id="@+id/deleteButton"
+         android:layout_toRightOf="@id/logButton"
+         android:textSize ="10sp"
+         android:text="Delete"
+         />
+     <Button
+         android:layout_width="60dp"
+         android:layout_height="wrap_content"
          android:layout_toRightOf="@id/name"
-         android:text="Button"
+         android:textSize ="10sp"
+         android:id = "@+id/logButton"
+         android:text = "Log"
          />
 
 

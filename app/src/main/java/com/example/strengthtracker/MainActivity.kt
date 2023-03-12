@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         val passText : TextView = findViewById(R.id.password)
         val login = findViewById<Button>(R.id.loginButton)
         val register = findViewById<Button>(R.id.register)
-        val forgotPassword = findViewById<Button>(R.id.forgotPass)
         val loginEmail = intent.getStringExtra("user_id")
         val loginPass = intent.getStringExtra("pass_id")
         var auth = FirebaseAuth.getInstance()
