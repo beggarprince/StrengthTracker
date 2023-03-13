@@ -1,6 +1,7 @@
 package com.example.strengthtracker
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -13,42 +14,57 @@ import kotlinx.android.synthetic.main.activity_home.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 
-lateinit var builder: AlertDialog.Builder
-lateinit var deleteCard: Card
+lateinit var deleteAlert: AlertDialog.Builder
+lateinit var retrievedCard: Card
+lateinit var logAlert: AlertDialog.Builder
 class Home : AppCompatActivity(), LifecycleOwner
 {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        //RecyclerView and ViewModel Setup
         val vm: HomeViewModel by viewModels()
-
         recView.adapter = vm.cardAdapter
         recView.layoutManager = LinearLayoutManager(this)
 
-        //UI Setup
+        //recView.findViewHolderForAdapterPosition(1)
+        //retrievedCard = Card("A","a", "a", 0)
+
+        //UI Views Setup
         val showNewCardDialog = findViewById<Button>(R.id.addCard)
         val complete = findViewById<Button>(R.id.cardComplete)
         val message = findViewById<TextView>(R.id.message)
 
-            builder = AlertDialog.Builder( this)
-            builder.apply {
+            deleteAlert = AlertDialog.Builder( this)
+            deleteAlert.apply {
                 setTitle("Delete Item")
                 setPositiveButton("Yes",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        vm.delCard(deleteCard)
-                        vm.updateCsv(this@Home)
-                        message.text="Item Removed"
+                    DialogInterface.OnClickListener { _, _ ->
+                        message.text="${retrievedCard.title} Removed"
+                        vm.delCard(retrievedCard)
                     })
                 setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
+                    DialogInterface.OnClickListener { _, _ ->
 
-                        message.text="Item Not Removed"
+                        message.text="${retrievedCard.title} Not Removed"
                     })
             }
 
+        logAlert = AlertDialog.Builder(this)
+        logAlert.apply {
+            setTitle("View Log?")
+            setPositiveButton("Yes", DialogInterface.OnClickListener{_,_ ->
+                var newAct = Intent(this@Home, Log::class.java)
+                newAct.putExtra("Card", "${retrievedCard.title}")
+                startActivity(newAct)
+            })
+            setNegativeButton("Cancel",DialogInterface.OnClickListener {_,_ ->
 
+            })
+        }
+
+        //Initialize recyclerview
        vm.storageSetup(this)
 
         //Toast messages
@@ -58,6 +74,7 @@ class Home : AppCompatActivity(), LifecycleOwner
 
         //Show new card screen
         showNewCardDialog.setOnClickListener{
+            //Hide Views
             recView.visibility = View.INVISIBLE
             newRep.visibility = View.VISIBLE
             newWeight.visibility = View.VISIBLE
@@ -72,6 +89,7 @@ class Home : AppCompatActivity(), LifecycleOwner
                     newRep.text.toString(),
                     newWeight.text.toString()))
             {
+                //Hide Views
                 newName.text.clear()
                 newRep.text.clear()
                 newWeight.text.clear()
@@ -82,16 +100,21 @@ class Home : AppCompatActivity(), LifecycleOwner
                 cardComplete.visibility = View.INVISIBLE
                 addCard.visibility = View.VISIBLE
 
-               // vm.updateFirebase()
             }
             else {emptyFieldCardCreation.show()
             }
+
         }
 
     }
 
 }
-public fun deleteDelete(card: Card){
-    deleteCard = card
-    builder.show()
+
+public fun getDeleteCard(card: Card){
+    retrievedCard = card
+    deleteAlert.show()
+}
+public fun getCard(card: Card){
+    retrievedCard = card
+    logAlert.show()
 }

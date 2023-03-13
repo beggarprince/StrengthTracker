@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">StrengthTracker</string>
-    <string name ="icon_dp">48dp</string>
+    <string name="icon_dp">48dp</string>
 </resources>

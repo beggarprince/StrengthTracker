@@ -34,7 +34,10 @@ class CardAdapter  (private val cardList: MutableList<Card>)
             rep.text = curCard.reps
 
             deleteButton.setOnClickListener{
-                deleteDelete(curCard)
+                getDeleteCard(curCard)
+            }
+            logButton.setOnClickListener{
+                getCard(curCard)
             }
 
         }

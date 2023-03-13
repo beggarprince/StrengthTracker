@@ -42,7 +42,8 @@ class HomeViewModel : ViewModel(){
         val reader = inputStream.bufferedReader()
         var header = reader.readLine()
           while (header != null) {
-              val (name, rep, weight, img) = header.split(',', ignoreCase = false, limit = 4)
+              val (name, rep, weight, img) =
+                  header.split(',', ignoreCase = false, limit = 4)
               addCard(name, rep, weight.trim().removeSurrounding("\""))
               header = reader.readLine()
           }
@@ -60,6 +61,7 @@ class HomeViewModel : ViewModel(){
         else return false
     }
 
+    //Add card to RecyclerView, local csv file, and firebase
     fun addCard(name: String,
                 rep: String,
                 weight: String) {
@@ -82,10 +84,8 @@ class HomeViewModel : ViewModel(){
         fOut.write(updatedCsv.toByteArray())
         updateFirebase()
     }
-
     fun delCard(card:Card){
         cardAdapter.deleteCard(card)
     }
-
 
 }
