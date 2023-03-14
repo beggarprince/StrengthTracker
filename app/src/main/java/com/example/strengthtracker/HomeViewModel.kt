@@ -48,7 +48,7 @@ class HomeViewModel : ViewModel(){
           while (header != null) {
               val (name, rep, weight, img) =
                   header.split(',', ignoreCase = false, limit = 4)
-              addCard2(name, rep, weight.trim().removeSurrounding("\""))
+              addCardNoContext(name, rep, weight.trim().removeSurrounding("\""))
               header = reader.readLine()
           }
         reader.close()
@@ -72,9 +72,9 @@ class HomeViewModel : ViewModel(){
         createFirebaseLogFile(name, context)
         updateFirebase(firebaseCsvRef, localCsv)
     }
-    fun addCard2(name: String,
-                rep: String,
-                weight: String) {
+    fun addCardNoContext(name: String,
+                         rep: String,
+                         weight: String) {
         val card = Card(name,rep,weight,R.drawable.default_icon)
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
@@ -98,6 +98,7 @@ class HomeViewModel : ViewModel(){
         val androidLogRef = "/data/data/com.example.strengthtracker/files/${name}.csv" //Reference for localCsv
         val logUri = Uri.fromFile(File(androidLogRef))
         updateFirebase(firebaseLogRef, logUri)
+        fOutLog.close()
     }
         fun updateCsv(context: Context){
         fOut  = context.openFileOutput("cardList.csv", 0)

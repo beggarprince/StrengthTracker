@@ -58,6 +58,7 @@ class Home : AppCompatActivity(), LifecycleOwner
             setPositiveButton("Yes", DialogInterface.OnClickListener{_,_ ->
                 var newAct = Intent(this@Home, Log::class.java)
                 newAct.putExtra("Card", "${retrievedCard.title}")
+                newAct.putExtra("firebaseUser",vm.firebaseUser)
                 startActivity(newAct)
             })
             setNegativeButton("Cancel",DialogInterface.OnClickListener {_,_ ->
