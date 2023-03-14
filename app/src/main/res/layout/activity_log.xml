@@ -60,6 +60,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:layout_constraintBottom_toTopOf="@+id/newLog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
     <Button
         android:id="@+id/newLog"
         android:layout_width="wrap_content"

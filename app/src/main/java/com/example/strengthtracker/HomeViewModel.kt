@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.File
 import java.io.FileOutputStream
 
@@ -17,6 +18,8 @@ class HomeViewModel : ViewModel(){
     val firebaseUser = FirebaseAuth.getInstance().uid
     val firebaseMainDir = FirebaseStorage.getInstance().reference
     var firebaseCsvRef = firebaseMainDir.child("users/"+ firebaseUser + "/cardList.csv") //Reference for firebase csv
+
+
     //TODO change hardcoded path
     val androidCsvRef = "/data/data/com.example.strengthtracker/files/cardList.csv" //Reference for localCsv
     lateinit var fOut: FileOutputStream //Output stream to write to localCsv
@@ -36,6 +39,7 @@ class HomeViewModel : ViewModel(){
         }.addOnFailureListener {
             println("CSV not downloaded\n$firebaseUser\n")
         }
+
         localCsv = Uri.fromFile(File(androidCsvRef))
     }
     fun populateRecView(inputStream: File) {
@@ -44,7 +48,7 @@ class HomeViewModel : ViewModel(){
           while (header != null) {
               val (name, rep, weight, img) =
                   header.split(',', ignoreCase = false, limit = 4)
-              addCard(name, rep, weight.trim().removeSurrounding("\""))
+              addCard2(name, rep, weight.trim().removeSurrounding("\""))
               header = reader.readLine()
           }
         reader.close()
@@ -52,37 +56,54 @@ class HomeViewModel : ViewModel(){
     fun checkComplete( name: String,
                       rep: String,
                       weight: String): Boolean{
-        if((name.isNotEmpty())
-            && (rep.isNotEmpty())
-            && (weight.isNotEmpty()))
-        {
-            addCard(name, rep, weight)
-            return true}
-        else return false
+        return ((name.isNotEmpty())
+                && (rep.isNotEmpty())
+                && (weight.isNotEmpty()))
     }
 
     //Add card to RecyclerView, local csv file, and firebase
     fun addCard(name: String,
+                rep: String,
+                weight: String, context: Context) {
+        val card = Card(name,rep,weight,R.drawable.default_icon)
+        cardAdapter.addCard(card)
+        csvLine = cardToCsv(card, "0")
+        fOut.write(csvLine.toByteArray())
+        createFirebaseLogFile(name, context)
+        updateFirebase(firebaseCsvRef, localCsv)
+    }
+    fun addCard2(name: String,
                 rep: String,
                 weight: String) {
         val card = Card(name,rep,weight,R.drawable.default_icon)
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
-        updateFirebase()
+        //createFirebaseLogFile(name, context)
+        updateFirebase(firebaseCsvRef, localCsv)
     }
 
-    fun updateFirebase(){
-        firebaseCsvRef.putFile(localCsv)
+    fun updateFirebase(storageReference: StorageReference, uri: Uri){
+        storageReference.putFile(uri)
     }
     fun cardToCsv(card: Card, imgFlag: String): String {
         return "${card.title},${card.reps},${card.weight},$imgFlag\n"
     }
-    fun updateCsv(context: Context){
+
+    fun createFirebaseLogFile(name: String, context: Context) {
+        val firebaseLogRef = firebaseMainDir.child("users/" + firebaseUser + "/log/${name}.csv")
+        val logCsv = File.createTempFile("${name}", "csv")
+        val fOutLog =context.openFileOutput("${name}.csv",0)
+        fOutLog.write("${name}".toByteArray())
+        val androidLogRef = "/data/data/com.example.strengthtracker/files/${name}.csv" //Reference for localCsv
+        val logUri = Uri.fromFile(File(androidLogRef))
+        updateFirebase(firebaseLogRef, logUri)
+    }
+        fun updateCsv(context: Context){
         fOut  = context.openFileOutput("cardList.csv", 0)
         var updatedCsv = cardAdapter.listToCsv()
         fOut.write(updatedCsv.toByteArray())
-        updateFirebase()
+        updateFirebase(firebaseCsvRef, localCsv)
     }
     fun delCard(card:Card){
         cardAdapter.deleteCard(card)

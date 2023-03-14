@@ -43,6 +43,7 @@ class Home : AppCompatActivity(), LifecycleOwner
                     DialogInterface.OnClickListener { _, _ ->
                         message.text="${retrievedCard.title} Removed"
                         vm.delCard(retrievedCard)
+                        vm.updateCsv(this@Home)
                     })
                 setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { _, _ ->
@@ -90,6 +91,8 @@ class Home : AppCompatActivity(), LifecycleOwner
                     newWeight.text.toString()))
             {
                 //Hide Views
+                vm.addCard(newName.text.toString(), newRep.text.toString(), newWeight.text.toString()
+                ,this)
                 newName.text.clear()
                 newRep.text.clear()
                 newWeight.text.clear()
