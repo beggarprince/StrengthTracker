@@ -33,8 +33,7 @@ class LogViewModel : ViewModel(){
 
     }
 
-    fun writeLog(line:String, context: Context){
-
+    fun writeLog(line:String){
         fOutLog.write(line.toByteArray())
         firebaseLogRef.putFile(logUri)
     }

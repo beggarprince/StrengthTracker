@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
+import com.github.mikephil.charting.charts.LineChart
+import android.view.View
 
 class Log : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +22,11 @@ class Log : AppCompatActivity() {
         val title = findViewById<TextView>(R.id.logTitle)
         val days = findViewById<TextView>(R.id.dayRecorded)
         val recordLog = findViewById<Button>(R.id.newLog)
+        val monthlyPr = findViewById<TextView>(R.id.monthlySets)
+        val monthlyTonnage = findViewById<TextView>(R.id.monthlyTonnage)
+
+        val lineChart = findViewById<LineChart>(R.id.chart1)
+        val logCard = findViewById<ConstraintLayout>(R.id.logCard)
 
         title.text = intent.extras?.getString("Card")
         val user = intent.extras?.getString("firebaseUser")
@@ -27,7 +36,9 @@ class Log : AppCompatActivity() {
 
 
         recordLog.setOnClickListener{
-            lvm.writeLog("This worked",this)
+            //lvm.writeLog("This worked")
+            logCard.visibility = View.VISIBLE
+            lineChart.visibility = View.INVISIBLE
         }
 
     }
