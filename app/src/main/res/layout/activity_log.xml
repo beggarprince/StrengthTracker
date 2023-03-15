@@ -79,9 +79,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/purple_500">
 
-        <TextView
+        <EditText
             android:id="@+id/logRep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,9 +90,11 @@
             app:layout_constraintBottom_toTopOf="@+id/logWeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="numberPassword"
+            />
 
-        <TextView
+        <EditText
             android:id="@+id/logWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,9 +102,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="numberPassword"/>
 
-        <TextView
+        <EditText
             android:id="@+id/logSets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +113,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logWeight" />
+            app:layout_constraintTop_toBottomOf="@+id/logWeight"
+            android:inputType="numberPassword"/>
+
+        <Button
+            android:id="@+id/logComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logSets"
+            android:text="Complete"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -38,4 +38,23 @@ class LogViewModel : ViewModel(){
         firebaseLogRef.putFile(logUri)
     }
 
+    fun checkLogEntry(rep: String,
+    weight: String,
+    set: String): Boolean{
+        if(rep.isNotEmpty() && weight.isNotEmpty() && set.isNotEmpty())
+        {
+            return true
+        }
+        return false
+    }
+
+    fun createCsv(
+        rep: String,
+        weight: String,
+        set: String,
+        date: String
+    ): String {
+        return "$rep,$weight,$set,$date"
+    }
 }
+
