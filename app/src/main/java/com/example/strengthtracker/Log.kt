@@ -50,8 +50,8 @@ class Log : AppCompatActivity() {
         val logComplete = findViewById<Button>(R.id.logComplete)
 
         recordLog.setOnClickListener{
-            //logCard.visibility = View.VISIBLE
-           // lineChart.visibility = View.INVISIBLE
+            logCard.visibility = View.VISIBLE
+            lineChart.visibility = View.INVISIBLE
 
         }
 
@@ -69,11 +69,4 @@ class Log : AppCompatActivity() {
         }
 
     }
-}
-
-suspend fun setLineDataOnMain(){
-
-}
-fun setLineData(){
-
 }

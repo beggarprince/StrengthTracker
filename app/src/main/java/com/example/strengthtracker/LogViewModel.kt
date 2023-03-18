@@ -75,10 +75,10 @@ class LogViewModel : ViewModel(){
         set: String,
         date: String
     ): String {
-        return "$rep,$weight,$set,$date"
+        return "$rep,$weight,$set,$date\n"
     }
 
-    fun retrieveCsv(inputStream : File){
+    private fun retrieveCsv(inputStream : File){
         println("retrieveCsv running\n")
         val reader = inputStream.bufferedReader()
         var floatyMcFloaty: Float = 0f
