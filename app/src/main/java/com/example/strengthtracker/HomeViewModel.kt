@@ -21,7 +21,8 @@ class HomeViewModel : ViewModel(){
 
 
     //TODO change hardcoded path
-    val androidCsvRef = "/data/data/com.example.strengthtracker/files/cardList.csv" //Reference for localCsv
+    val androidCsvRef =
+        "/data/data/com.example.strengthtracker/files/cardList.csv" //Reference for localCsv
     lateinit var fOut: FileOutputStream //Output stream to write to localCsv
     lateinit var localCsv: Uri //File upload to Firebase
 
@@ -31,7 +32,8 @@ class HomeViewModel : ViewModel(){
         //Setup Output Stream
        fOut  = context.openFileOutput("cardList.csv", 0)
         println("Attempting to connect to Firebase\n")
-        var localFile = File.createTempFile("cardList", "csv")
+        var localFile = File.createTempFile("cardList",
+            "csv") //Temp file for output
         firebaseCsvRef.getFile(localFile).addOnSuccessListener {
             println("Successfully Downloaded CSV")
             populateRecView(localFile)
@@ -40,7 +42,7 @@ class HomeViewModel : ViewModel(){
             println("CSV not downloaded\n$firebaseUser\n")
         }
 
-        localCsv = Uri.fromFile(File(androidCsvRef))
+        localCsv = Uri.fromFile(File(androidCsvRef))// Uri representing local file, upload to fb
     }
     fun populateRecView(inputStream: File) {
         val reader = inputStream.bufferedReader()

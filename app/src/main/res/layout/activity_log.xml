@@ -17,11 +17,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="300dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="330dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/logTitle">
 
@@ -63,7 +63,7 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart1"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="500dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/newLog"
         app:layout_constraintEnd_toEndOf="parent"
