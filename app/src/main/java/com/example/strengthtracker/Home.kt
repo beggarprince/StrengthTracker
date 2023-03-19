@@ -28,9 +28,6 @@ class Home : AppCompatActivity(), LifecycleOwner
         recView.adapter = vm.cardAdapter
         recView.layoutManager = LinearLayoutManager(this)
 
-        //recView.findViewHolderForAdapterPosition(1)
-        //retrievedCard = Card("A","a", "a", 0)
-
         //UI Views Setup
         val showNewCardDialog = findViewById<Button>(R.id.addCard)
         val complete = findViewById<Button>(R.id.cardComplete)
@@ -47,7 +44,6 @@ class Home : AppCompatActivity(), LifecycleOwner
                     })
                 setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { _, _ ->
-
                         message.text="${retrievedCard.title} Not Removed"
                     })
             }

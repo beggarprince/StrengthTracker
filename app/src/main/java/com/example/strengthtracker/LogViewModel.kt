@@ -1,7 +1,6 @@
 package com.example.strengthtracker
 
 import android.content.Context
-import android.content.Context.MODE_APPEND
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.charts.LineChart
@@ -19,14 +18,15 @@ lateinit var logUri: Uri
 lateinit var firebaseLogRef: StorageReference
 
 lateinit var lineChart: LineChart
-lateinit var lineDataSet: LineDataSet
-lateinit var lineData: LineData
+lateinit var lineDataSetWeight: LineDataSet
+lateinit var lineDataWeight: LineData
+
+
 class LogViewModel : ViewModel(){
     //       val firebaseLogRef = firebaseMainDir.child("users/" + firebaseUser + "/log/${name}.csv")
     private val firebaseMain = FirebaseStorage.getInstance().reference //Can't pass as extra
 
-    var lineChartArray = ArrayList<Entry>()
-
+    var lineChartArrayWeight = ArrayList<Entry>()
 
     fun setupLogRef(name: String,
                     firebaseUser:String,
@@ -88,20 +88,25 @@ class LogViewModel : ViewModel(){
                 header.split(',', ignoreCase = false, limit = 4)
             println("Newline: ")
             val floaty: Float = weight.toFloat()
-            lineChartArray.add(Entry(floatyMcFloaty,floaty))
+            lineChartArrayWeight.add(Entry(floatyMcFloaty,floaty))
+
             floatyMcFloaty += 10f
             println("$weight\n")
             writeLog(header+"\n")
             header = reader.readLine()
             println("loop finished\n")
         }
-        lineDataSet = LineDataSet(lineChartArray, "Weight")
-        lineData = LineData(lineDataSet)
-        lineChart.setData(lineData)
+        lineDataSetWeight = LineDataSet(lineChartArrayWeight, "Weight")
+        lineDataWeight = LineData(lineDataSetWeight)
+        lineChart.setData(lineDataWeight)
+
+
+
         lineChart.invalidate()
 
         println("retrieveCsv finished\n")
         reader.close()
+
     }
 
 

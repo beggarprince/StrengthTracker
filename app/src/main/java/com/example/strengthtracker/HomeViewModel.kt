@@ -96,7 +96,7 @@ class HomeViewModel : ViewModel(){
         val firebaseLogRef = firebaseMainDir.child("users/" + firebaseUser + "/log/${name}.csv")
         val logCsv = File.createTempFile("${name}", "csv")
         val fOutLog =context.openFileOutput("${name}.csv",0)
-        fOutLog.write("${name}".toByteArray())
+        fOutLog.write("0,0,0,0".toByteArray())
         val androidLogRef = "/data/data/com.example.strengthtracker/files/${name}.csv" //Reference for localCsv
         val logUri = Uri.fromFile(File(androidLogRef))
         updateFirebase(firebaseLogRef, logUri)
