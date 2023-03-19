@@ -18,8 +18,6 @@ class HomeViewModel : ViewModel(){
     val firebaseUser = FirebaseAuth.getInstance().uid
     val firebaseMainDir = FirebaseStorage.getInstance().reference
     var firebaseCsvRef = firebaseMainDir.child("users/"+ firebaseUser + "/cardList.csv") //Reference for firebase csv
-
-
     //TODO change hardcoded path
     val androidCsvRef =
         "/data/data/com.example.strengthtracker/files/cardList.csv" //Reference for localCsv
@@ -81,7 +79,6 @@ class HomeViewModel : ViewModel(){
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
-        //createFirebaseLogFile(name, context)
         updateFirebase(firebaseCsvRef, localCsv)
     }
 

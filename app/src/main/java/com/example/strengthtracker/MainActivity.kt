@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
                         welcomeText.text = "Logging In"
                         val home = Intent(this, Home::class.java)
                         startActivity(home)
-                        welcomeText.text = "getString(R.string.abode)"
                     } else {
                         welcomeText.text = "Incorrect Email/Password"
                     }

@@ -12,7 +12,6 @@
         android:id="@+id/recView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp"
         android:background="@color/teal_200"
@@ -28,7 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="119dp"
+        android:layout_marginStart="115dp"
         android:layout_marginBottom="33dp"
         android:text="Add New Exercise"
         android:visibility="visible"
@@ -43,7 +42,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="This is the default message" />
+        android:text="" />
 
 
     <EditText
