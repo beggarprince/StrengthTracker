@@ -1,8 +1,10 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.Home
 
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import com.example.strengthtracker.Card
+import com.example.strengthtracker.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -65,7 +67,7 @@ class HomeViewModel : ViewModel(){
     fun addCard(name: String,
                 rep: String,
                 weight: String, context: Context) {
-        val card = Card(name,rep,weight,R.drawable.default_icon)
+        val card = Card(name,rep,weight, R.drawable.default_icon)
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
@@ -75,7 +77,7 @@ class HomeViewModel : ViewModel(){
     fun addCardNoContext(name: String,
                          rep: String,
                          weight: String) {
-        val card = Card(name,rep,weight,R.drawable.default_icon)
+        val card = Card(name,rep,weight, R.drawable.default_icon)
         cardAdapter.addCard(card)
         csvLine = cardToCsv(card, "0")
         fOut.write(csvLine.toByteArray())
@@ -105,7 +107,7 @@ class HomeViewModel : ViewModel(){
         fOut.write(updatedCsv.toByteArray())
         updateFirebase(firebaseCsvRef, localCsv)
     }
-    fun delCard(card:Card){
+    fun delCard(card: Card){
         cardAdapter.deleteCard(card)
     }
 

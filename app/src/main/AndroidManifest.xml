@@ -12,18 +12,18 @@
         android:theme="@style/Theme.StrengthTracker"
         tools:targetApi="31">
         <activity
-            android:name=".Log"
+            android:name=".Log.Log"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".Home.Home"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Register"
+            android:name=".FirebaseAuth.Register"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".MainActivity"
+            android:name=".FirebaseAuth.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

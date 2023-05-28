@@ -1,10 +1,12 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.FirebaseAuth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.widget.Button
 import android.widget.TextView
+import com.example.strengthtracker.Home.Home
+import com.example.strengthtracker.R
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         register.setOnClickListener{
-            val reg = Intent(this,Register::class.java)
+            val reg = Intent(this, Register::class.java)
             startActivity(reg)
         }
     }

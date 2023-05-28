@@ -1,9 +1,10 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.FirebaseAuth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.strengthtracker.R
 import com.google.firebase.auth.FirebaseAuth
 
 class Register : AppCompatActivity() {

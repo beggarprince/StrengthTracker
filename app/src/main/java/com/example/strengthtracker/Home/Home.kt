@@ -1,4 +1,4 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.Home
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import com.example.strengthtracker.Card
+import com.example.strengthtracker.Log.Log
+import com.example.strengthtracker.R
 
 lateinit var deleteAlert: AlertDialog.Builder
 lateinit var retrievedCard: Card

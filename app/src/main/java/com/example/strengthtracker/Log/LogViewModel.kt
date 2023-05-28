@@ -1,4 +1,4 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.Log
 
 import android.content.Context
 import android.net.Uri
@@ -47,7 +47,7 @@ class LogViewModel : ViewModel(){
             println("CSV not downloaded\n$firebaseUser\n")
         }
 
-        val androidLogRef = "/data/data/com.example.strengthtracker/files/${fileName}.csv" //Reference for localCsv
+        val androidLogRef = "/data/data/com.example.strengthtracker/files/$fileName.csv" //Reference for localCsv
         logUri = Uri.fromFile(File(androidLogRef))
 
     }

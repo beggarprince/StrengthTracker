@@ -1,6 +1,5 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.Log
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -10,13 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.mikephil.charting.charts.LineChart
 import android.view.View
 import android.widget.EditText
-import androidx.lifecycle.ViewModel
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
-import java.util.*
+import com.example.strengthtracker.R
 
 class Log : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

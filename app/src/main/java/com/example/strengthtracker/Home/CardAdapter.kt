@@ -1,9 +1,11 @@
-package com.example.strengthtracker
+package com.example.strengthtracker.Home
 
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.example.strengthtracker.Card
+import com.example.strengthtracker.R
 import kotlinx.android.synthetic.main.card.view.*
 
 class CardAdapter  (private val cardList: MutableList<Card>)
